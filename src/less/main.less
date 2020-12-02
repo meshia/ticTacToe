@@ -19,6 +19,14 @@ body {
     flex-direction: column;
     align-items: center;
     background-color:@base-background;
+
+    button {
+      .ui-bubble();
+      position: relative;
+      width: 50%;
+      margin: 16px;
+    }
+
     .game-background {
       position: relative;
       width: 100%;
@@ -44,6 +52,33 @@ body {
         position: relative;
         padding:3px;
       }
+      &.game-popup {
+        top: 80px;
+        pointer-events: all;
+        justify-content: center;
+        flex-wrap: wrap;
+        font-size: 20px;
+
+        h2 {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        input {
+          width:16px;
+          margin:16px;
+        }
+        label {
+          width:60%;
+          margin:16px;
+        }
+        .game-popup-error {
+          font-size: 15px;
+          margin: 16px;
+          color: red;
+        }
+      }
     }
 
     .game-restart {
@@ -64,9 +99,8 @@ body {
     .game-restart{
       font-size:30px;
     }
-    
     .game-ui {
-      width: 25vw;
+      width: 40vw;
     }
   }
   }

@@ -32,6 +32,23 @@ body #game {
   align-items: center;
   background-color: #aebbc0;
 }
+body #game button {
+  position: absolute;
+  font-weight: 800;
+  padding: 5px 10px;
+  box-shadow: 5px 5px 5px rgba(46, 46, 46, 0.2);
+  background-color: #FFFFFF;
+  color: #2e2e2e;
+  border-radius: 50px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 100;
+  position: relative;
+  width: 50%;
+  margin: 16px;
+}
 body #game .game-background {
   position: relative;
   width: 100%;
@@ -68,6 +85,31 @@ body #game .game-ui .game-player {
   position: relative;
   padding: 3px;
 }
+body #game .game-ui.game-popup {
+  top: 80px;
+  pointer-events: all;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 20px;
+}
+body #game .game-ui.game-popup h2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+body #game .game-ui.game-popup input {
+  width: 16px;
+  margin: 16px;
+}
+body #game .game-ui.game-popup label {
+  width: 60%;
+  margin: 16px;
+}
+body #game .game-ui.game-popup .game-popup-error {
+  font-size: 15px;
+  margin: 16px;
+  color: red;
+}
 body #game .game-restart {
   position: absolute;
   font-weight: 800;
@@ -98,6 +140,6 @@ body #game .game-restart {
     font-size: 30px;
   }
   body #game .game-ui {
-    width: 25vw;
+    width: 40vw;
   }
 }

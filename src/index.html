@@ -17,7 +17,7 @@
 
         $(function() {
             let newGame = new Game;
-            newGame.initGame(6, 4, 'player2', $('#game'));
+            newGame.initGame($('#game'));
         });
 
     class Game {
@@ -28,26 +28,82 @@
         this.gameElement;
     }
 
-    initGame (m, n, playerToStart, gameElement) {
-        console.log('this', this, 'gameElement', gameElement);
+    initGame (gameElement) {
         if(gameElement && gameElement.length != 0) {
-            this.cellsAmountPerRow = (m ? m : this.cellsAmountPerRow);
-            this.cellsToWin = (n ? n : this.cellsToWin);
-            this.currentPlayer = (playerToStart ? playerToStart : this.currentPlayer);
             this.gameElement = gameElement;
             this.startGamePopup();
-            this.initUi();
-            this.initCells();
             this.initBackground(this.gameElement);
         }
     }
 
     startGamePopup() {
         // TODO: start game popup
-        // 1. m input
-        // 2. n input
-        // 3. start button
         // add check - m > n, in not ERROR
+        $('<div/>', {
+            "id": 'game-popup',
+            "class": 'game-ui game-popup'
+        }).appendTo(this.gameElement); // add popup div
+
+        const $gamepopup = $('#game-popup');
+
+        $('<h2/>', {
+            "id": 'game-popup-title',
+            "text": 'Set the Game up:'
+        }).appendTo($gamepopup); // add to game popup
+
+        $('<label/>', {
+            "id": 'game-input-m-label',
+            "for": 'game-input-m',
+            "text": 'Cells Per Row:'
+        }).appendTo($gamepopup); // add to game popup
+        $('<input/>', {
+            "id": 'game-input-m',
+            "class": 'game-input',
+            "value": '6'
+        }).appendTo($gamepopup); // add to game popup
+
+        $('<label/>', {
+            "id": 'game-input-n-label',
+            "for": 'game-input-n',
+            "text": 'Amout of Cells for the Win:'
+        }).appendTo($gamepopup); // add to game popup
+        $('<input/>', {
+            "id": 'game-input-n',
+            "class": 'game-input',
+            "value": '4'
+        }).appendTo($gamepopup); // add to game popup
+
+        // TODO: register players
+
+        $('<button/>', {
+            "id": 'game-popup-start',
+            "text": 'START!'
+        }).appendTo($gamepopup); // add to game popup
+
+        const $startBtn = $('#game-popup-start');
+        const currentThis = this; // so we'll be able to find the 'this' from the listener
+        $startBtn.on('click', function() {
+            const m = parseInt($('#game-input-m').val());
+            const n = parseInt($('#game-input-n').val());
+            if(typeof m == 'number' && typeof n == 'number'&& m > n) {
+                currentThis.cellsAmountPerRow = (m ? m : currentThis.cellsAmountPerRow);
+                currentThis.cellsToWin = (n ? n : currentThis.cellsToWin);
+                currentThis.currentPlayer = currentThis.currentPlayer; // TODO:rendom?
+                currentThis.initUi();
+                currentThis.initCells();
+                $startBtn.off();
+                $gamepopup.remove();
+            } else {
+                if(!$('#game-popup-error') || $('#game-popup-error').length === 0) {
+                    $('<span/>', {
+                        "id": 'game-popup-error',
+                        "class": 'game-popup-error',
+                        "text": 'please make sure all the inputs are filled with valid numbers only'
+                    }).appendTo($gamepopup); // add to game popup
+                }
+            }
+        });
+        
     }
 
     initUi () {
@@ -81,7 +137,7 @@
             "class": 'game-background'
         }).appendTo(gameElement); // add background div
         const el = document.querySelector("#game-background");
-        el.addEventListener("mousemove", (e) => {
+        el.addEventListener("mousemove", (e) => { //TODO:fix
             if(currentThis.gameFinished === false) {
                 el.style.backgroundPositionX = (e.offsetX + 600) + "px";
             }
