@@ -3,7 +3,7 @@
   position: absolute;
   font-weight: 800;
   padding: 5px 10px;
-  border: solid 4px #2e2e2e;
+  box-shadow: 5px 5px 5px rgba(46, 46, 46, 0.2);
   background-color: #FFFFFF;
   color: #2e2e2e;
   border-radius: 50px;
@@ -36,6 +36,9 @@ body #game .game-background {
   position: relative;
   width: 100%;
   height: 100%;
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-position: bottom center;
   background-color: #aebbc0;
   flex: 0 0 auto;
   transition: ease 0.2s;
@@ -44,7 +47,7 @@ body #game .game-ui {
   position: absolute;
   font-weight: 800;
   padding: 5px 10px;
-  border: solid 4px #2e2e2e;
+  box-shadow: 5px 5px 5px rgba(46, 46, 46, 0.2);
   background-color: #FFFFFF;
   color: #2e2e2e;
   border-radius: 50px;
@@ -65,35 +68,11 @@ body #game .game-ui .game-player {
   position: relative;
   padding: 3px;
 }
-body #game .game-winner {
-  position: absolute;
-  font-weight: 800;
-  padding: 5px 10px;
-  border: solid 4px #2e2e2e;
-  background-color: #FFFFFF;
-  color: #2e2e2e;
-  border-radius: 50px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 90vw;
-  top: 7%;
-  font-size: 20px;
-}
-body #game .game-winner .game-winner {
-  list-style: none;
-}
 body #game .game-restart {
   position: absolute;
   font-weight: 800;
   padding: 5px 10px;
-  border: solid 4px #2e2e2e;
+  box-shadow: 5px 5px 5px rgba(46, 46, 46, 0.2);
   background-color: #FFFFFF;
   color: #2e2e2e;
   border-radius: 50px;
@@ -118,7 +97,6 @@ body #game .game-restart {
   body #game .game-restart {
     font-size: 30px;
   }
-  body #game .game-winner,
   body #game .game-ui {
     width: 25vw;
   }

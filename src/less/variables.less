@@ -12,14 +12,19 @@
 
 @bubble-background: @base-white;
 @bubble-text: @base-text;
-@bubble-borders: @base-black;
+@bubble-borders: fade(@base-black, 20%);
+
+// IMAGES
+@background-image: url('../images/background.jpg');
+@george-image: url('../images/george.png');
 
 // MIXIN
 .ui-bubble {
     position: absolute;
     font-weight: 800;
     padding:5px 10px;
-    border: solid 4px @bubble-borders;
+    // border: solid 4px @bubble-borders;
+    box-shadow: 5px 5px 5px @bubble-borders;
     background-color: @bubble-background;
     color: @bubble-text;
     border-radius: 50px;

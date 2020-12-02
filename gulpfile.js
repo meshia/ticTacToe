@@ -29,11 +29,6 @@ gulp.task('copyImages', function() {
     .pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('copyJs', function() {
-    return gulp.src('src/js/*.js')
-    .pipe(gulp.dest('dist/js'));
-});
-
 gulp.task('minCss', function () {
     return gulp.src('css/main.css')
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -45,34 +40,18 @@ gulp.task('minCss', function () {
     .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('devJs', function () {
-    return gulp.src('temp/js/*.js')
-    .pipe(gulp.dest('dist/js'));
-});
-
 gulp.task('watch', function() {
     gulp.watch('src/index.html', ['copyIndex']);
     gulp.watch('src/less/*', ['styles']);
-    gulp.watch('src/js/*.js', ['copyJs']);
     gulp.watch('src/images/*', ['copyImages']);
 });
 
-gulp.task('server', function() {
-    return gulp.src('dist')
-      .pipe(server({
-        livereload: true,
-        open: true
-      }))
-});
 
 gulp.task('dev', function () {
   runSequence('build-clean',
-              'copyJs',
-              'devJs',
               'copyIndex',
               'copyImages',
               'styles',
-              'server',
               'watch');
 });
 
@@ -83,10 +62,7 @@ gulp.task('production', function (callback) {
   runSequence('build-clean',
               'copyIndex',
               'copyImages',
-              'copySounds',
               'styles',
-              'copyJs',
-              'copyPhp',
               'minCss',
               callback);
   }
