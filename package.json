@@ -1,0 +1,19 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "tic tac toe game",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meshia/ticTacToe.git"
+  },
+  "author": "Meshi Avrahami",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meshia/ticTacToe/issues"
+  },
+  "homepage": "https://github.com/meshia/ticTacToe#readme"
+}
