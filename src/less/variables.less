@@ -1,0 +1,32 @@
+// MEDIA QUERIES
+@desktop-max-width: 1900px; // anything higher the app wrapper wouldn't grow 
+@tablet: 1024px;
+
+// COLORS
+@base-white: #FFFFFF;
+@base-black: #2e2e2e;
+@base-light-grey: #aebbc0;
+
+@base-background: @base-light-grey;
+@base-text: @base-black;
+
+@bubble-background: @base-white;
+@bubble-text: @base-text;
+@bubble-borders: @base-black;
+
+// MIXIN
+.ui-bubble {
+    position: absolute;
+    font-weight: 800;
+    padding:5px 10px;
+    border: solid 4px @bubble-borders;
+    background-color: @bubble-background;
+    color: @bubble-text;
+    border-radius: 50px;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    z-index:100;
+}
+

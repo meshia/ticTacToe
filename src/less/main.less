@@ -1,0 +1,85 @@
+@import "variables";
+@import url("http://fonts.googleapis.com/css?family=Open+Sans&.css"); 
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: @base-white;
+  color: @base-text;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #game { // Mobile & Tablet First
+    max-width: @desktop-max-width;
+    width:100%;
+    height:500px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:@base-background;
+    .game-background {
+      position: relative;
+      width: 100%;
+      height:100%;
+      background-color:@base-background;
+      flex: 0 0 auto;
+      transition: ease 0.2s;
+    }
+
+    .game-ui {
+      .ui-bubble();
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      top:10px;
+      width: 90vw;
+      pointer-events: none;
+      .game-player {
+        font-size: 20px;
+        position: relative;
+        padding:3px;
+      }
+    }
+
+    .game-winner {
+      .ui-bubble();
+      display:flex;
+      flex-direction:column;
+      align-items: center;
+      justify-content: center;
+      width: 90vw;
+      top:7%;
+      font-size:20px;
+      .game-winner {
+        list-style: none;
+      }
+    }
+
+    .game-restart {
+      .ui-bubble();
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 10vw;
+      top: 35%;
+      width:15vw;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+  // Desktop
+  @media (min-width: @tablet) {
+    height:800px;
+    .game-restart{
+      font-size:30px;
+    }
+
+    .game-winner,
+    .game-ui {
+      width: 25vw;
+    }
+  }
+  }
+}
