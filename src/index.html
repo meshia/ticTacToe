@@ -37,8 +37,6 @@
     }
 
     startGamePopup() {
-        // TODO: start game popup
-        // add check - m > n, in not ERROR
         $('<div/>', {
             "id": 'game-popup',
             "class": 'game-ui game-popup'
@@ -73,7 +71,7 @@
             "value": '4'
         }).appendTo($gamepopup); // add to game popup
 
-        // TODO: register players
+        // TODO: register players?
 
         $('<button/>', {
             "id": 'game-popup-start',
@@ -89,7 +87,7 @@
                 currentThis.cellsAmountPerRow = (m ? m : currentThis.cellsAmountPerRow);
                 currentThis.cellsToWin = (n ? n : currentThis.cellsToWin);
                 currentThis.currentPlayer = currentThis.currentPlayer; // TODO:rendom?
-                currentThis.initUi();
+                currentThis.initPlayer();
                 currentThis.initCells();
                 $startBtn.off();
                 $gamepopup.remove();
@@ -106,21 +104,35 @@
         
     }
 
-    initUi () {
+
+    initPlayer() {
         $('<div/>', {
             "id": 'game-ui',
             "class": 'game-ui'
         }).appendTo(this.gameElement); // add ui div
-        this.initPlayer();
-    }
+        const $gameUi = $('#game-ui'); 
 
-    initPlayer() {
-        // TODO: create visualization on both players and their marks
         $('<span/>', {
-            "id": 'game-player',
+            "id": 'game-player1',
+            "class": 'game-player left',
+            "text": "player1"
+        }).appendTo($gameUi);
+
+        $('<span/>', {
+            "id": 'game-current-player',
             "class": 'game-player',
             "text": "Turn: " + this.currentPlayer
-        }).appendTo('#game-ui');
+        }).appendTo($gameUi);
+
+        $('<span/>', {
+            "id": 'game-player2',
+            "class": 'game-player right',
+            "text": "player2"
+        }).appendTo($gameUi);
+
+        $('<i/>', {
+            "class": 'george-icon'
+        }).appendTo($('.game-player.right, .game-player.left'));
     }
 
     initCells () {

@@ -79,11 +79,36 @@ body #game .game-ui {
   top: 10px;
   width: 90vw;
   pointer-events: none;
+  margin-top: 16px;
 }
 body #game .game-ui .game-player {
+  display: flex;
   font-size: 20px;
   position: relative;
   padding: 3px;
+}
+body #game .game-ui .game-player .george-icon {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  background-image: url('../images/george.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: -50%;
+}
+body #game .game-ui .game-player.right {
+  margin-right: 50px;
+  margin-left: auto;
+}
+body #game .game-ui .game-player.right .george-icon {
+  left: 125%;
+}
+body #game .game-ui .game-player.left {
+  margin-left: 50px;
+  margin-right: auto;
+}
+body #game .game-ui .game-player.left .george-icon {
+  right: 100%;
 }
 body #game .game-ui.game-popup {
   top: 80px;
