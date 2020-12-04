@@ -52,7 +52,7 @@ body #game button {
 body #game .game-background {
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: bottom center;
@@ -78,7 +78,6 @@ body #game .game-ui {
   justify-content: space-around;
   top: 10px;
   width: 90vw;
-  pointer-events: none;
   margin-top: 16px;
 }
 body #game .game-ui .game-player {
@@ -112,7 +111,6 @@ body #game .game-ui .game-player.left .george-icon {
 }
 body #game .game-ui.game-popup {
   top: 80px;
-  pointer-events: all;
   justify-content: center;
   flex-wrap: wrap;
   font-size: 20px;
@@ -135,6 +133,48 @@ body #game .game-ui.game-popup .game-popup-error {
   margin: 16px;
   color: red;
 }
+body #game .game-cells-table {
+  position: absolute;
+  font-weight: 800;
+  padding: 5px 10px;
+  box-shadow: 5px 5px 5px rgba(46, 46, 46, 0.2);
+  background-color: #FFFFFF;
+  color: #2e2e2e;
+  border-radius: 50px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 100;
+  display: flex;
+  margin-top: 80px;
+  padding: 36px 16px;
+  flex-direction: column;
+  align-items: center;
+}
+body #game .game-cells-table .game-cells-row {
+  display: flex;
+  flex-direction: row;
+}
+body #game .game-cells-table .game-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 30px;
+  padding: 10px;
+  margin: 4px;
+  font-size: 30px;
+  color: #2e2e2e;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(46, 46, 46, 0.2);
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+body #game .game-cells-table .game-cell.disable {
+  pointer-events: none;
+}
+body #game .game-winner,
 body #game .game-restart {
   position: absolute;
   font-weight: 800;
@@ -150,17 +190,24 @@ body #game .game-restart {
   z-index: 100;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  text-align: center;
   justify-content: center;
   width: 10vw;
-  top: 35%;
+  top: 40%;
   width: 15vw;
   font-size: 20px;
-  cursor: pointer;
+}
+body #game .game-winner {
+  pointer-events: none;
+  top: 20%;
+  padding: 16px;
 }
 @media (min-width: 1024px) {
   body #game {
     height: 800px;
   }
+  body #game .game-winner,
   body #game .game-restart {
     font-size: 30px;
   }

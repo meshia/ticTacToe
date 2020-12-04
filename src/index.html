@@ -31,10 +31,18 @@
     initGame (gameElement) {
         if(gameElement && gameElement.length != 0) {
             this.gameElement = gameElement;
+            this.initBackground();
             this.startGamePopup();
-            this.initBackground(this.gameElement);
         }
     }
+
+    initBackground () {
+        let currentThis = this;
+        $('<div/>', {
+            "id": 'game-background',
+            "class": 'game-background'
+        }).appendTo(this.gameElement); // add background div
+    };
 
     startGamePopup() {
         $('<div/>', {
@@ -83,7 +91,7 @@
         $startBtn.on('click', function() {
             const m = parseInt($('#game-input-m').val());
             const n = parseInt($('#game-input-n').val());
-            if(typeof m == 'number' && typeof n == 'number'&& m > n) {
+            if(typeof m == 'number' && typeof n == 'number'&& m <= 10 && m > n) { // check if the numbers are valid and no larger than 10 (to fit the ui)
                 currentThis.cellsAmountPerRow = (m ? m : currentThis.cellsAmountPerRow);
                 currentThis.cellsToWin = (n ? n : currentThis.cellsToWin);
                 currentThis.currentPlayer = currentThis.currentPlayer; // TODO:rendom?
@@ -96,7 +104,7 @@
                     $('<span/>', {
                         "id": 'game-popup-error',
                         "class": 'game-popup-error',
-                        "text": 'please make sure all the inputs are filled with valid numbers only'
+                        "text": 'please make sure all the inputs are filled with valid numbers only and no larger than 10'
                     }).appendTo($gamepopup); // add to game popup
                 }
             }
@@ -136,36 +144,88 @@
     }
 
     initCells () {
-        // TODO: create cells
-        // TODO: create click events for each cells
-        // TODO: create checkWin
-        // TODO: switch players on click
+        $('<div/>', {
+            "id": 'game-cells-table',
+            "class": 'game-cells-table game-ui'
+        }).appendTo(this.gameElement); // add ui div
+        const $gameTable = $('#game-cells-table');
+
+        const currentThis = this; // for the click handlers
+
+        for(let r=0 ; r<this.cellsAmountPerRow ; r++) { // create all the rows
+            $('<div/>', {
+                    "id": 'row-' + r,
+                    "class": 'game-cells-row',
+                }).appendTo($gameTable);
+                let $currentRow = $('#row-'+r);
+            for(let c=0 ; c<this.cellsAmountPerRow ; c++) { //create all the columns
+                $('<span/>', {
+                    "id": 'cell-' + r + '-' + c,
+                    "class": 'game-cell',
+                    "data-row": r,
+                    "data-cell": c,
+                    "text": " "
+                }).appendTo($currentRow);
+                let $cell = $('#cell-' + r + '-' + c);
+                $cell.on('click', function() {
+                    $cell.addClass('disable');
+                    $cell.text((currentThis.currentPlayer == 'player1' ? 'X' : 'O'));
+                    currentThis.checkWin($cell);
+                });
+            }
+        }
     }
 
-    initBackground (gameElement) {
-        let currentThis = this;
-        $('<div/>', {
-            "id": 'game-background',
-            "class": 'game-background'
-        }).appendTo(gameElement); // add background div
-        const el = document.querySelector("#game-background");
-        el.addEventListener("mousemove", (e) => { //TODO:fix
-            if(currentThis.gameFinished === false) {
-                el.style.backgroundPositionX = (e.offsetX + 600) + "px";
-            }
-        });
-    };
+    checkWin($currentCell) {
+        const $cell = $currentCell;
+        const rowNumber = $cell.data('row');
+        const cellNumber = $cell.data('cell');
+        const row = $('.game-cell[data-row="' + rowNumber + '"]').text();
+        const column = $('.game-cell[data-cell="' + cellNumber + '"]').text();
+        const char = $cell.text();
+        
+        const isAWin = this.hasRepeatedCharacters(row,char) || this.hasRepeatedCharacters(column,char); // check cell's row and colum
+        
+        if(isAWin) {
+            this.initWin();
+        } else {
+            this.switchPlayer();
+        }
+    }
 
-    initRestartButton () {
-        let currentThis = this;
+    hasRepeatedCharacters(str, char) { // check repeates
+        const winStr = char.repeat(this.cellsToWin);
+        const result = str.indexOf(winStr);
+        return (result != -1 ? true : false);
+    }
+
+    switchPlayer() {
+        this.currentPlayer = (this.currentPlayer=='player1' ? 'player2' : 'player1');
+        $('#game-current-player').text("Turn: " + this.currentPlayer);
+    }
+
+    initWin() {
+        $('.game-cell').addClass('disable');
         $('<span/>', {
+            "id": 'game-winner',
+            "class": 'game-winner',
+            "text": "The Winner: " + this.currentPlayer + "!"
+        }).appendTo(this.gameElement);
+        this.initRestartButton();
+    }
+
+    initRestartButton() {
+        let currentThis = this;
+        $('<button/>', {
             "id": 'game-restart',
             "class": 'game-restart',
             "text": "Restart?"
-        }).appendTo(this.gameElement); // add background div
+        }).appendTo(this.gameElement);
+
         $("#game-restart").on("click", function(){
-            // TODO: add reset
-            $('#game-winners').remove();
+            $('.game-cell').text(' ');
+            $('.game-cell').removeClass('disable');
+            $('#game-winner').remove();
             $("#game-restart").off();
             $("#game-restart").remove();
         });
